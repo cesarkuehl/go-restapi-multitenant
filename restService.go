@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"reflect"
 	"runtime"
 	"strconv"
@@ -39,18 +38,6 @@ type ServiceClaims struct {
 
 // Defines the handler signature
 type handler func(w http.ResponseWriter, r *http.Request, db *gorm.DB) error
-
-// Gets a environment variable value, otherwise returns the defined default value
-func loadEnv(envName string, defaultValue string) string {
-	value, ok := os.LookupEnv(envName)
-
-	if !ok {
-		value = defaultValue
-		log.Printf("Could not find the env %s, using it's default value (%s) instead", envName, defaultValue)
-	}
-
-	return value
-}
 
 // Validates if the Authorization header is preset and has a valid value
 func isValidAuthorizationHeader(authorizationHeader string) bool {
